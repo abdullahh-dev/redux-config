@@ -1,3 +1,4 @@
+import { PaginatedResult, ServerResponse } from "@/common/types";
 import {
   ActionReducerMapBuilder,
   AsyncThunk,

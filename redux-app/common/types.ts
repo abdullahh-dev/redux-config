@@ -1,3 +1,5 @@
+import { HttpStatusCode } from "@/utils/http-utils";
+
 export type ServerResponse<R = any> = {
   data: R;
   message: string;
