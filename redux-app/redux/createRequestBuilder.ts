@@ -1,5 +1,3 @@
-import { ServerResponse } from "@/components/types";
-import { PaginatedResult } from "@/store/types";
 import {
   ActionReducerMapBuilder,
   AsyncThunk,
@@ -43,7 +41,7 @@ const returnBuilder = <S, R>(
   });
   builder.addCase(request.rejected, (state, action: any) => {
     if (showErrorMessages) {
-      fireErrorToast(action?.payload?.response);
+      //   fireErrorToast(action?.payload?.response);
     }
     if (customLogic?.rejected) {
       customLogic?.rejected(state, action);
@@ -57,7 +55,7 @@ const returnBuilder = <S, R>(
     state.requests[name].success = true;
 
     if (showSuccessMessage) {
-      fireSuccessToast(action.payload);
+      //   fireSuccessToast(action.payload);
     }
 
     const { data, message, path, status, statusCode } = action.payload
@@ -82,14 +80,18 @@ const returnBuilder = <S, R>(
   });
 };
 
+type ReducerSliceState = {
+  requests: {};
+};
+
 export const createRequestBuilderAuth = <
   D,
-  K extends keyof AuthState["requests"] = keyof AuthState["requests"]
+  K extends keyof ReducerSliceState["requests"] = keyof ReducerSliceState["requests"]
 >(
-  builder: ActionReducerMapBuilder<AuthState>,
+  builder: ActionReducerMapBuilder<ReducerSliceState>,
   request: AsyncThunk<AxiosResponse<D, any>, any, AsyncThunkConfig>,
   name: K,
-  customLogic: CustomLogic<AuthState, D> = {},
+  customLogic: CustomLogic<ReducerSliceState, D> = {},
   options?: {
     showSuccessMessage?: boolean;
     showErrorMessages?: boolean;
